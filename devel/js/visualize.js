@@ -5,6 +5,33 @@
  * @version 0.1
  */
 
-export function visualize(data){	
-	console.log(data);
+import {spending} from './spending';
+
+var data;
+var panels = ['vis-spending', 'vis-distribution'];
+
+/**
+ *
+ *
+ * @param {array} dataset array of objects for visualization
+ */
+export function visualize(dataset){	
+	data = dataset;
+
+	detectPanels(data);
+}
+
+/**
+ *
+ */
+function detectPanels(data) {
+	panels.forEach( panel => {
+		if (document.getElementById(panel)) {
+			switch (panel) {
+				case 'vis-spending':
+					spending(data);
+					break;
+			}
+		}		
+	});
 }
