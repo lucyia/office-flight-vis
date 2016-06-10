@@ -14,6 +14,9 @@ var yScale;
 
 var color;
 
+// function for advanced tooltip
+var tip;
+
 // scale for stacking rectangles
 var stack;
 
@@ -70,6 +73,12 @@ function init(data) {
 function update(data) {
 
 	stack(data);
+
+	tip = d3.tip()
+		.attr('class', 'd3-tip')
+		.html( d => d.ticket +'<br/>'+ numeral(d.y).format('$0,0') );
+
+	svg.call(tip);
 	
 	var groups = svg.selectAll('g')
 		.data(data)
@@ -84,7 +93,9 @@ function update(data) {
 			.attr('y', d => yScale(d.y + d.y0))
 			.attr('width', d => xScale.rangeBand())
 			.attr('height', d => yScale(d.y0) - yScale(d.y + d.y0))
-			.attr('fill', d => color(d.ticket));
+			.attr('fill', d => color(d.ticket))
+			.on('mouseover', tip.show)
+			.on('mouseout', tip.hide);
 }
 
 /**

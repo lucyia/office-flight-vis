@@ -30,7 +30,9 @@ gulp.task('resources-scripts', function() {
 		'./node_modules/jquery/dist/jquery.js',
 		'./node_modules/bootstrap/dist/js/bootstrap.js',
 		'./node_modules/d3/d3.js',
-		'./node_modules/d3-tip/index.js'
+		'./node_modules/d3-tip/index.js',		
+		'./node_modules/numeral/numeral.js',
+		'./node_modules/numeral/languages/en-gb.js'
 		])	
 	.pipe(concat('resources.js'))		
 	// add when ready for dist // .pipe(minify())

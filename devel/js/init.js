@@ -19,6 +19,11 @@ import {visualize} from './visualize';
  * Initializes reading of file and then visualization process.
  */
 function init(){
+
+	// setup numeral for correct number formatting
+	numeral.language('en-gb');
+
+	// parse file
 	d3.csv('Home_Office_Air_Travel_Data_2011.csv')
 		.row( d => { 
 			return { 
