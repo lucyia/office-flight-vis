@@ -1,0 +1,42 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: @color-dark;
+
+    .nav-sidebar {
+        margin-right: -20px;
+        margin-left: -20px;
+
+        li {
+            &.active {
+                background-color: @color-very-dark;
+            }
+
+            a {
+                color: @color-very-light;
+
+                &:hover {                    
+                    background-color: @color-main;                    
+                }
+            }
+        }        
+
+        .navbar-brand {
+            float: none;
+            font-weight: 600;
+            color: @color-main;
+
+            &:hover {
+                background-color: transparent;
+                color: @color-very-light;
+            }
+        }
+    }
+}

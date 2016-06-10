@@ -46,11 +46,9 @@ gulp.task('custom-scripts', function() {
 });
 
 gulp.task('styles', function() {
-	gulp.src([
-		'./node_modules/bootstrap/less/bootstrap.less',
-		'./less/*.less'
-		])
-	.pipe(concat('styles.css'))
+	return gulp.src([
+		'./less/styles.less'
+		])	
 	.pipe(less())
 	// add when ready for dist // .pipe(cssnano())
 	.pipe(gulp.dest('../dist'));

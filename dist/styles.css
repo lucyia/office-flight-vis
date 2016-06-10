@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:600,200);
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -6723,4 +6724,89 @@ button.close {
   .hidden-print {
     display: none !important;
   }
+}
+/* Old browsers */
+/* FF3.6-15 */
+/* Chrome10-25,Safari5.1-6 */
+/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+/* IE6-9 fallback on horizontal gradient */
+body {
+  background: #48afa5;
+  background: -moz-linear-gradient(-45deg, #48afa5 0%, #004c63 100%);
+  background: -webkit-linear-gradient(-45deg, #48afa5 0%, #004c63 100%);
+  background: linear-gradient(135deg, #48afa5 0%, #004c63 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#48afa5', endColorstr='#306378', GradientType=1);
+  font-family: 'Raleway', sans-serif;
+  font-weight: 200;
+  color: #eee;
+}
+h1,
+h2 {
+  font-weight: 200;
+}
+h2 {
+  color: #eee;
+  margin: 0;
+  padding: 10px;
+  font-size: 18px;
+}
+section {
+  height: 100%;
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  display: block;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: rgba(0, 40, 50, 0.95);
+}
+.sidebar .nav-sidebar {
+  margin-right: -20px;
+  margin-left: -20px;
+}
+.sidebar .nav-sidebar li.active {
+  background-color: rgba(0, 30, 40, 0.85);
+}
+.sidebar .nav-sidebar li a {
+  color: #eee;
+}
+.sidebar .nav-sidebar li a:hover {
+  background-color: #48afa5;
+}
+.sidebar .nav-sidebar .navbar-brand {
+  float: none;
+  font-weight: 600;
+  color: #48afa5;
+}
+.sidebar .nav-sidebar .navbar-brand:hover {
+  background-color: transparent;
+  color: #eee;
+}
+.page-header {
+  margin-top: 20px;
+}
+.box {
+  padding-bottom: 15px;
+  padding-left: 0;
+}
+.box-8 {
+  height: 400px;
+}
+.box-2 {
+  height: 185px;
+}
+.box:first-child {
+  padding-left: 15px;
+}
+.box-content {
+  background-color: rgba(0, 40, 50, 0.95);
+  height: 100%;
+}
+.box-transp {
+  background-color: transparent;
 }

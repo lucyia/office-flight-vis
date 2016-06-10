@@ -1,0 +1,14 @@
+@color-main: rgb(72,175,165);
+@color-main-dark: rgb(0,76,99);
+
+@color-dark: rgba(0, 40, 50, .95);
+@color-very-dark: rgba(0, 30, 40, .85);
+
+@color-very-light: #eee;
+
+@color-gradient-fallback: @color-main; 															/* Old browsers */
+@color-gradient-moz: -moz-linear-gradient(-45deg, @color-main 0%, @color-main-dark 100%);		/* FF3.6-15 */
+@color-gradient-webkit: -webkit-linear-gradient(-45deg, @color-main 0%, @color-main-dark 100%);	/* Chrome10-25,Safari5.1-6 */
+@color-gradient-linear: linear-gradient(135deg, @color-main 0%, @color-main-dark 100%);			/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+@color-gradient-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#48afa5', endColorstr='#306378', GradientType=1);	/* IE6-9 fallback on horizontal gradient */
+
