@@ -7,10 +7,13 @@
 
 import {spending} from './spending';
 import {distribution} from './distribution';
-import {topDirectorates, updateTopDir} from './topDirectorates';
+import {topSpending, updateTopDir} from './topSpending';
 
 var data;
-var panels = ['vis-spending', 'vis-distribution', 'vis-top-dir'];
+var panels = ['vis-spending', 'vis-distribution', 'vis-top-dir', 'vis-top-sup'];
+
+var sup;
+var dir;
 
 /**
  *
@@ -32,10 +35,12 @@ export function updatedSpending(month) {
 	if (month) {
 		// redraw all panels with only given month data
 		var dataset = data.filter( d => d.month === month );
-		updateTopDir(dataset);
+		sup.update(dataset);
+		dir.update(dataset);
 	} else {
 		// redraw all panels with all months data
-		updateTopDir(data);
+		sup.update(data);
+		dir.update(data);
 	}
 }
 
@@ -59,11 +64,11 @@ function detectPanels(data) {
 				case 'vis-avg-price':
 					avgPrice(data);
 					break;
-				case 'vis-top-sup':
-					topSuppliers(data);
+				case 'vis-top-sup':					
+					sup = topSpending(data, 'supplier', 'vis-top-sup', '#4b9226');
 					break;
 				case 'vis-top-dir':
-					topDirectorates(data);
+					dir = topSpending(data, 'directorate', 'vis-top-dir', '#af4c7e');
 					break;
 			}
 		}		
