@@ -10,6 +10,7 @@ import {uniqValues, calcSpending} from './vis-util';
 
 // general attribtues
 var visId = 'vis-top-dir';
+var param = 'directorate';
 var margin;
 var width;
 var height;
@@ -27,21 +28,42 @@ var tip;
 
 /**
  * Initializes all variables needed for visualization.
+ *
+ * @param {array} data array of data objects
  */
 export function topDirectorates(data) {	
 
-	var topDir = calcTopDir(data);
+	var topData = calcTop(data);
 
-	init(topDir);
+	init(topData);
 
-	createBarChart(topDir, visId);
-
+	createBarChart(topData);
 }
 
-function calcTopDir(data) {
-	return calcSpending(data, 'directorate').sort( (a, b) => b.fare - a.fare ).slice(0,5);
+/**
+ * Firstly, calculates the new top data and then updates the bar chart and text values according to new data.
+ *
+ * @param {array} data
+ */
+export function updateTopDir(data) {	
+	update(calcTop(data));
 }
 
+/**
+ * Calculates top five items from data according to spending (fare) values.
+ *
+ * @param {array} data
+ * @return {array} dataset updated 
+ */
+function calcTop(data) {
+	return calcSpending(data, param).sort( (a, b) => b.fare - a.fare ).slice(0,5);
+}
+
+/**
+ * Initializes all needed variables for visualization and creates a SVG panel. 
+ *
+ * @param {array} data
+ */
 function init(data) {
 	margin = {top: 0, right: 0, bottom: 0, left: 5};
 	width = 260 - margin.left - margin.right;
@@ -63,7 +85,12 @@ function init(data) {
 			.attr('transform', 'translate('+ margin.left +','+ margin.top +')');
 }
 
-function createBarChart(data, visId) {
+/**
+ * Creates bar chart and a tooltip.
+ *
+ * @param {array} data
+ */
+function createBarChart(data) {
 
 	// create tooltip and call it
 	tip = d3.tip()
@@ -74,15 +101,16 @@ function createBarChart(data, visId) {
 
 	svg.call(tip);
 
+	// create bar charts
 	update(data);
 
 }
 
-export function updateTopDir(data) {
-	var topDir = calcTopDir(data);
-	update(topDir);
-}
-
+/**
+ * Updates the bar chart visualization with all names and fare values.
+ *
+ * @param {array} data array of objects; e.g. [ { fare: x, otherParam: a }, { fare: y, otherParam: b }, ... ]
+ */
 function update(data) {
 	// update scale so relative differencies can be seen
 	xScale.domain([ 0, Math.max(...data.map(d => d.fare)) ]);
