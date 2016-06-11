@@ -22,6 +22,20 @@ export function visualize(dataset){
 }
 
 /**
+ * Data is firstly filtered according to month and all other visualizations are then redrawn with updated data.
+ *
+ * @param {string} month selected month which will be used for filtering data
+ */
+export function updatedSpending(month) {
+	if (month) {
+		// redraw all panels with only given month data
+	} else {
+		// redraw all panels with all months data
+	}
+}
+
+
+/**
  *
  */
 function detectPanels(data) {
