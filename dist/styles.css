@@ -6818,6 +6818,23 @@ section {
   color: #fff;
   border-radius: 2px;
   pointer-events: none;
+  z-index: 2000;
+}
+.d3-tip .type {
+  line-height: 150%;
+}
+.d3-tip .type-0 {
+  color: #00bcd4;
+}
+.d3-tip .type-1 {
+  color: #1d6dd0;
+}
+.d3-tip .type-2 {
+  color: #edcd02;
+}
+.d3-tip .value {
+  font-size: 16px;
+  line-height: 160%;
 }
 /* Creates a small triangle extender for the tooltip */
 .d3-tip:after {
@@ -6859,4 +6876,23 @@ section {
   margin: -4px 0 0 -1px;
   top: 50%;
   left: 100%;
+}
+.axis {
+  color: #ccc;
+}
+.axis .tick,
+.axis line {
+  fill: none;
+  shape-rendering: crispEdges;
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+.axis text {
+  color: #ccc;
+  text-rendering: optimizeLegibility;
+  font-size: 11px;
+}
+.axis path {
+  fill: none;
+  stroke-width: 0px;
 }

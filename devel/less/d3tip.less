@@ -6,6 +6,28 @@
 	color: #fff;
 	border-radius: 2px;
 	pointer-events: none;
+	z-index: 2000;
+
+	.type {
+		line-height: 150%;
+
+		&-0 {
+			color: @color-type-eco;
+		}
+
+		&-1 {
+			color: @color-type-bus;	
+		}
+
+		&-2 {
+			color: @color-type-ecoprem;
+		}
+	}	
+
+	.value {
+		font-size: 16px;
+		line-height: 160%;
+	}
 }
 
 /* Creates a small triangle extender for the tooltip */

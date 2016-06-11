@@ -1,0 +1,22 @@
+.axis {
+	color: @color-light;	
+
+	& .tick,
+	& line {
+		fill: none;
+		shape-rendering: crispEdges;
+		stroke: @color-light;
+		stroke-width: 1px;
+	}
+
+	& text {
+		color: @color-light;
+		text-rendering: optimizeLegibility;
+		font-size: 11px;
+	}
+
+	& path {
+		fill: none;
+		stroke-width: 0px;
+	}
+}
