@@ -6,6 +6,7 @@
  * @version 0.1
  */
 
+import {uniqValues} from './vis-util';
 import {updatedSpending} from './visualize';
 
 // general attribtues
@@ -298,15 +299,4 @@ function spendingDataset(data) {
 	});
 
 	return dataset;
-}
-
-/**
- * Finds out the unique values of given data for given parameter.
- *
- * @param {array} data array of objects representing all year spending
- * @param {string} param parameter which should be looked up
- * @return {array} uniqueValues array of all unique values for given parameter
- */
-function uniqValues(data, param) {
-	return [ ...new Set(data.map(d => d[param]))];
 }
