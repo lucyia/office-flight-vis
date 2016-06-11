@@ -269,18 +269,21 @@ function spendingDataset(data) {
 
 	var tickets = uniqValues(data, 'ticket');
 
-	var monthlyData = uniqValues(data, 'month').map( month => data.filter( d => d.month === month ));
-	
+	var months = uniqValues(data, 'month');
+
+	var monthlyData = months.map( month => data.filter( d => d.month === month ));
+
 	tickets.forEach( ticket => {
 		var ticketArray = [];
 
-		monthlyData.forEach( monthData => {
+		monthlyData.forEach( (monthData, i) => {
 			var dataObj = {};
-
+		
 			dataObj.ticket = ticket;			
 			dataObj.values = monthData.filter( d => d.ticket === ticket);
-			dataObj.x = monthData[0].month;
-			dataObj.y = monthData.reduce( (a,b) => {
+			dataObj.x = months[i];
+
+			dataObj.y = dataObj.values.reduce( (a,b) => {
 				if ( b.ticket === ticket ) {
 					return a + b.fare;
 				} else {
@@ -288,7 +291,7 @@ function spendingDataset(data) {
 				}
 			}, 0);
 
-			ticketArray.push(dataObj);
+			ticketArray.push(dataObj);			
 		});
 
 		dataset.push(ticketArray);
