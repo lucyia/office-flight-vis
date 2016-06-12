@@ -17,7 +17,7 @@ var height;
 var tip;
 
 /**
- * Initializes all variables needed for visualization.
+ * Initializes all variables needed and creates the visualization.
  *
  * @param {array} data array of data objects
  * @param {string} param name of the parameter which will be used for visualization of top spending

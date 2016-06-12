@@ -9,6 +9,13 @@ export function uniqValues(data, param) {
 	return [ ...new Set(data.map(d => d[param]))];
 }
 
+/**
+ * Calculates the whole year's spending for a given param (e.g. supplier, directorate) and returns it in updated array of objects.
+ *
+ * @param {array} data
+ * @param {string} param
+ * @return {array} allSpending array of updated objects, e.g. [ {fare: x, param: a}, {fare: y, param: b}, ...]
+ */
 export function calcSpending(data, param) {
 	var uniqItems = uniqValues(data, param);
 	

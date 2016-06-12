@@ -7,13 +7,24 @@
 
 import {spending} from './spending';
 import {distribution} from './distribution';
-import {topSpending, updateTopDir} from './topSpending';
+import {topSpending} from './topSpending';
+import {ticket} from './ticket';
 
 var data;
-var panels = ['vis-spending', 'vis-distribution', 'vis-top-dir', 'vis-top-sup'];
+var panels = [
+	'vis-spending', 
+	'vis-distribution', 
+	'vis-ticket-num', 
+	'vis-ticket-avg', 
+	'vis-top-sup', 
+	'vis-top-dir'
+	];
 
 var sup;
 var dir;
+
+var price;
+var num;
 
 /**
  *
@@ -32,16 +43,20 @@ export function visualize(dataset){
  * @param {string} month selected month which will be used for filtering data
  */
 export function updatedSpending(month) {
+	var dataset;
+	
 	if (month) {
 		// redraw all panels with only given month data
-		var dataset = data.filter( d => d.month === month );
-		sup.update(dataset);
-		dir.update(dataset);
+		dataset = data.filter( d => d.month === month );
 	} else {
 		// redraw all panels with all months data
-		sup.update(data);
-		dir.update(data);
+		dataset = data;
 	}
+
+	sup.update(dataset);
+	dir.update(dataset);
+	num.update(dataset);
+	price.update(dataset);
 }
 
 
@@ -52,23 +67,28 @@ function detectPanels(data) {
 	panels.forEach( panel => {
 		if (document.getElementById(panel)) {
 			switch (panel) {
-				case 'vis-spending':
+				case panels[0]:
 					spending(data);
 					break;
-				case 'vis-distribution':
+
+				case panels[1]:
 					distribution(data);
 					break;
-				case 'vis-avg-month':
-					avgMonth(data);
+
+				case panels[2]:
+					num = ticket(data, 'length', panels[2], '#ff2255');
 					break;
-				case 'vis-avg-price':
-					avgPrice(data);
+
+				case panels[3]:
+					price = ticket(data, 'fare', panels[3], '#ff5722');
 					break;
-				case 'vis-top-sup':					
-					sup = topSpending(data, 'supplier', 'vis-top-sup', '#4b9226');
+
+				case panels[4]:					
+					sup = topSpending(data, 'supplier', panels[4], '#4b9226');
 					break;
-				case 'vis-top-dir':
-					dir = topSpending(data, 'directorate', 'vis-top-dir', '#af4c7e');
+
+				case panels[5]:
+					dir = topSpending(data, 'directorate', panels[5], '#af4c7e');
 					break;
 			}
 		}		
