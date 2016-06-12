@@ -92,13 +92,14 @@ export function topSpending(data, param, visId, color) {
 	 *
 	 * @param {array} data
 	 */
-	function createBarChart(data) {
+	function createBarChart(data) {		
 
 		// create tooltip and call it
 		tip = d3.tip()
 			.attr('class', 'd3-tip')
 			.html( d => {
-				return '<span class="value">'+numeral(d.fare).format('$0,0') + '</span>'; 
+				return '<span class="value">'+numeral(d.fare).format('$0,0') + '</span>\
+					<br/><span class="number">'+numeral(d.values.length).format('0,0')+' tickets</span>'; 
 			});
 
 		svg.call(tip);

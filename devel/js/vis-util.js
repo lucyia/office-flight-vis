@@ -28,6 +28,7 @@ export function calcSpending(data, param) {
 
 		obj['fare'] = itemArray.reduce( (a,b) => a + b.fare, 0);
 		obj[param] = itemArray[0][param];
+		obj['values'] = itemArray;
 
 		allSpending.push(obj);
 	});

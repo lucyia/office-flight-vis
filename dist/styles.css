@@ -6787,6 +6787,9 @@ section {
   background-color: transparent;
   color: #eee;
 }
+.sidebar .legend {
+  border-top: 1px solid rgba(0, 40, 50, 0.95);
+}
 .page-header {
   margin-top: 20px;
 }
@@ -6835,6 +6838,9 @@ section {
 .d3-tip .value {
   font-size: 16px;
   line-height: 160%;
+}
+.d3-tip .number {
+  line-height: 170%;
 }
 /* Creates a small triangle extender for the tooltip */
 .d3-tip:after {

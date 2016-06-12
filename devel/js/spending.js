@@ -51,6 +51,8 @@ export function spending(data) {
 	dataset = spendingDataset(data);
 	
 	createBarChart(dataset);
+
+	createLegend(dataset);
 }
 
 /**
@@ -127,7 +129,9 @@ function createBarChart(data) {
 		.attr('class', 'd3-tip')
 		.html( d => {
 			var index = color.range().indexOf(color(d.ticket));
-			return '<span class="type type-'+index+'">'+ d.ticket +'</span><br/><span class="value">'+numeral(d.y).format('$0,0') + '</span>'; 
+			return '<span class="type type-'+index+'">'+ d.ticket +'</span>\
+				<br/><span class="value">'+numeral(d.y).format('$0,0') + '</span>\
+				<br/><span class="number">'+numeral(d.values.length).format('0,0')+' tickets</span>'; 
 		});
 
 	svg.call(tip);
@@ -256,6 +260,51 @@ function createBarChart(data) {
 
 		tip.hide();
 	}
+}
+
+/**
+ * Creates a legend for the spending visualization.
+ * For each ticket type a rectangle and a text label is created.
+ *
+ * @param {array} data
+ */
+function createLegend(data) {
+
+	// rectangle size
+	var size = 10;
+
+	// svg panel for the legend
+	var svgLegend = d3.select('#spending-legend')
+		.append('svg')
+			.attr('width', 200)
+			.attr('height', 90)
+		.append('g')
+			.attr('transform', 'translate(20,20)');
+
+	// create rectangles for each element
+	svgLegend.selectAll('.s-legend')
+		.data(data)
+		.enter()
+		.append('rect')
+			.attr('class', 's-legend legend')
+			.attr('x', 0)
+			.attr('y', (d, i) => i*size*2)
+			.attr('height', size)
+			.attr('width', size)
+			.attr('fill', d => color(d[0].ticket));
+
+	// create text label
+	svgLegend.selectAll('.s-legend-label')
+		.data(data)
+		.enter()
+		.append('text')
+			.attr('class', 's-legend-label legend')
+			.attr('x', 0)
+			.attr('y', (d, i) => i*size*2)
+			.attr('dx', size+5)
+			.attr('dy', size)		
+			.attr('fill', 'white')
+			.text(d => d[0].ticket);
 }
 
 /**
