@@ -23,8 +23,10 @@ var tip;
  * @param {string} param name of the parameter which will be used for visualization of top spending
  * @param {string} visId id of the visualization panel
  * @param {string} color fill color used for all rectangles
+ * @param {number} maxNumber number of param displayed
+ * @param {number} panelHeight height of the SVG panel
  */
-export function topSpending(data, param, visId, color) {
+export function topSpending(data, param, visId, color, maxNumber, panelHeight) {
 
 	var vis = {};
 	vis.update = updateTopSpending;	
@@ -58,7 +60,7 @@ export function topSpending(data, param, visId, color) {
 	 * @return {array} dataset updated 
 	 */
 	function calcTop(data) {
-		return calcSpending(data, param).sort( (a, b) => b.fare - a.fare ).slice(0,5);
+		return calcSpending(data, param).sort( (a, b) => b.fare - a.fare ).slice(0,maxNumber);
 	}
 
 	/**
@@ -69,7 +71,7 @@ export function topSpending(data, param, visId, color) {
 	function init(data) {
 		margin = {top: 0, right: 0, bottom: 0, left: 5};
 		width = 260 - margin.left - margin.right;
-		height = 130 - margin.top - margin.bottom;
+		height = panelHeight - margin.top - margin.bottom;
 
 		yScale = d3.scale.ordinal()
 			.domain(data.map(d => d[param]))
@@ -150,7 +152,7 @@ export function topSpending(data, param, visId, color) {
 				.attr('class', 'bar-'+param+'-name')
 				.attr('x', 0)
 				.attr('y', d => yScale(d[param]))
-				.attr('dy', 17)
+				.attr('dy', (yScale.rangeBand()/4)*3)
 				.attr('dx', 5)
 				.attr('fill', 'white')
 				.text(d => d[param])
@@ -171,9 +173,9 @@ export function topSpending(data, param, visId, color) {
 				.attr('class', 'bar-'+param+'-fare')
 				.attr('x', width-35)
 				.attr('y', d => yScale(d[param]))
-				.attr('dy', 17)
+				.attr('dy', (yScale.rangeBand()/4)*3)
 				.attr('dx', 5)
-				.attr('fill', 'white')
+				.attr('fill', 'white')				
 				.text(d => numeral(d.fare).format('0a'));
 
 		fares.exit().remove();
