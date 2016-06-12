@@ -9,6 +9,7 @@ import {spending} from './spending';
 import {distribution} from './distribution';
 import {topSpending} from './topSpending';
 import {ticket} from './ticket';
+import {destinations} from './destinations';
 
 var data;
 var panels = [
@@ -17,7 +18,8 @@ var panels = [
 	'vis-ticket-num', 
 	'vis-ticket-avg', 
 	'vis-top-sup', 
-	'vis-top-dir'
+	'vis-top-dir', 
+	'vis-destinations'
 	];
 
 var sup;
@@ -76,11 +78,11 @@ function detectPanels(data) {
 					break;
 
 				case panels[2]:
-					num = ticket(data, 'length', panels[2], '#ff2255');
+					num = ticket(data, 'length', panels[2], '#d0725d');
 					break;
 
 				case panels[3]:
-					price = ticket(data, 'fare', panels[3], '#ff5722');
+					price = ticket(data, 'fare', panels[3], '#d2a24c');
 					break;
 
 				case panels[4]:					
@@ -89,6 +91,10 @@ function detectPanels(data) {
 
 				case panels[5]:
 					dir = topSpending(data, 'directorate', panels[5], '#af4c7e');
+					break;
+
+				case panels[6]:
+					destinations(data);
 					break;
 			}
 		}		
