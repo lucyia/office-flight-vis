@@ -108,41 +108,221 @@ function drawVis(data) {
 			.attr('refY', 3)
 			.attr('orient', 'auto')
 		.append('path')
+			.attr('class', 'flight')
 			.attr('d', 'M0,0 L0,6 L4,3 L0,0')
 			.attr('fill', 'white');
-
-	// line function
-	var line = d3.svg.line()
-		.interpolate('basis')
-		.x( d => {
-			console.log(d, d.x)
-			return d.x
-		})
-		.y( d => d.y);
-
-	// UK -> UK
-	var centerX_UK = data[0].coord.x;
-	var centerY_UK = data[0].coord.y-r/3;
 
 	var shiftX = r/2;
 	var shiftY = r/2;
 
-	console.log(centerY_UK, centerX_UK, shiftY, shiftX)
+	// line function
+	var line = d3.svg.line()
+		.interpolate('basis')
+		.x( d => d.x)
+		.y( d => d.y);
 
-	var flights_UK2UK_nodes = [ 
-		{ x: centerX_UK+shiftX, y: centerY_UK-shiftY },
-		{ x: centerX_UK+shiftX*1.5, y: centerY_UK-shiftY*2 },
-		{ x: centerX_UK, y: centerY_UK-shiftY*3 },
-		{ x: centerX_UK-shiftX*1.5, y: centerY_UK-shiftY*2 },
-		{ x: centerX_UK-shiftX, y: centerY_UK-shiftY }
-	];
+	arrowPlace2Self();
 
-	var flights_UK2UK = svg.append('path')
-		.attr('d', line(flights_UK2UK_nodes))
-		.attr('stroke', 'white')
-		.attr('stroke-width', 5)
-		.attr('fill', 'none')
-		.attr('marker-end', 'url(#markerArrow)');
+	arrowPlace2Out();
+
+	arrowPlace2In();
+
+	/**
+	 * Draws an arrow from a place to itself, representing flights from the place returing to it.
+	 */
+	function arrowPlace2Self() {		
+
+		// UK -> UK
+		var centerX_UK = data[0].coord.x;
+		var centerY_UK = data[0].coord.y-r/3;
+
+		var flights_UK2UK_nodes = [ 
+			{ x: centerX_UK+shiftX, y: centerY_UK-shiftY },
+			{ x: centerX_UK+shiftX*1.5, y: centerY_UK-shiftY*2 },
+			{ x: centerX_UK, y: centerY_UK-shiftY*3 },
+			{ x: centerX_UK-shiftX*1.5, y: centerY_UK-shiftY*2 },
+			{ x: centerX_UK-shiftX, y: centerY_UK-shiftY }
+		];
+
+		var flights_UK2UK = svg.append('path')
+			.attr('d', line(flights_UK2UK_nodes))
+			.attr('class', 'flight')
+			.attr('stroke', 'white')
+			.attr('stroke-width', 5)
+			.attr('fill', 'none')
+			.attr('marker-end', 'url(#markerArrow)');
+
+		
+		// nEEA -> nEEA
+		var centerX_nEEA = data[1].coord.x;
+		var centerY_nEEA = data[1].coord.y+r/3;
+
+		var flights_nEEA2nEEA_nodes = [ 
+			{ x: centerX_nEEA-shiftX, y: centerY_nEEA+shiftY },
+			{ x: centerX_nEEA-shiftX*1.5, y: centerY_nEEA+shiftY*2 },
+			{ x: centerX_nEEA, y: centerY_nEEA+shiftY*3 },
+			{ x: centerX_nEEA+shiftX*1.5, y: centerY_nEEA+shiftY*2 },
+			{ x: centerX_nEEA+shiftX, y: centerY_nEEA+shiftY }
+		];
+
+		var flights_nEEA2nEEA = svg.append('path')
+			.attr('d', line(flights_nEEA2nEEA_nodes))
+			.attr('class', 'flight')
+			.attr('stroke', 'white')
+			.attr('stroke-width', 5)
+			.attr('fill', 'none')
+			.attr('marker-end', 'url(#markerArrow)');
+
+		
+		// nEEA -> nEEA
+		var centerX_EEA = data[2].coord.x;
+		var centerY_EEA = data[2].coord.y+r/3;
+
+		var flights_EEA2EEA_nodes = [ 
+			{ x: centerX_EEA-shiftX, y: centerY_EEA+shiftY },
+			{ x: centerX_EEA-shiftX*1.5, y: centerY_EEA+shiftY*2 },
+			{ x: centerX_EEA, y: centerY_EEA+shiftY*3 },
+			{ x: centerX_EEA+shiftX*1.5, y: centerY_EEA+shiftY*2 },
+			{ x: centerX_EEA+shiftX, y: centerY_EEA+shiftY }
+		];
+
+		var flights_EEA2EEA = svg.append('path')
+			.attr('d', line(flights_EEA2EEA_nodes))
+			.attr('class', 'flight')
+			.attr('stroke', 'white')
+			.attr('stroke-width', 5)
+			.attr('fill', 'none')
+			.attr('marker-end', 'url(#markerArrow)');
+	}
+
+	function arrowPlace2Out() {
+		/*
+		var linesOut = svg.selectAll('.flight-out')
+			.data(data)
+			.enter()
+			.append('line')
+				.attr('x1', (d,i) => d.coord.x)
+				.attr('y1', (d,i) => d.coord.y)
+				.attr('x2', (d, i) => data[ (i+1) % 3].coord.x)
+				.attr('y2', (d, i) => data[ (i+1) % 3].coord.y)
+				.attr('stroke', 'white')
+				.attr('stroke-width', 5)
+				.attr('fill', 'none')
+				.attr('marker-end', 'url(#markerArrow)');
+		*/
+
+		// UK -> nEEA
+		var centerX_UK = data[0].coord.x-r;
+		var centerY_UK = data[0].coord.y+r/4;
+
+		var centerX_nEEA = data[1].coord.x;
+		var centerY_nEEA = data[1].coord.y-r;
+
+		var linesOut = svg.append('line')
+				.attr('class', 'flight flight-out')
+				.attr('x1', centerX_UK)
+				.attr('y1', centerY_UK)
+				.attr('x2', centerX_nEEA)
+				.attr('y2', centerY_nEEA)
+				.attr('stroke', 'white')
+				.attr('stroke-width', 5)
+				.attr('fill', 'none')
+				.attr('marker-end', 'url(#markerArrow)');
+
+		// UK -> EEA
+		var centerX_UK = data[0].coord.x+r;
+		var centerY_UK = data[0].coord.y+r/4;
+
+		var centerX_EEA = data[2].coord.x;
+		var centerY_EEA = data[2].coord.y-r;
+
+		var linesOut = svg.append('line')
+				.attr('class', 'flight flight-out')
+				.attr('x1', centerX_UK)
+				.attr('y1', centerY_UK)
+				.attr('x2', centerX_EEA)
+				.attr('y2', centerY_EEA)
+				.attr('stroke', 'white')
+				.attr('stroke-width', 5)
+				.attr('fill', 'none')
+				.attr('marker-end', 'url(#markerArrow)');
+		
+		// nEEA -> EEA
+		var centerX_nEEA = data[1].coord.x+r-2;
+		var centerY_nEEA = data[1].coord.y-r/4;
+
+		var centerX_EEA = data[2].coord.x-r;
+		var centerY_EEA = data[2].coord.y-r/4;
+
+		var linesOut = svg.append('line')
+				.attr('class', 'flight flight-out')
+				.attr('x1', centerX_nEEA)
+				.attr('y1', centerY_nEEA)
+				.attr('x2', centerX_EEA)
+				.attr('y2', centerY_EEA)
+				.attr('stroke', 'white')
+				.attr('stroke-width', 5)
+				.attr('fill', 'none')
+				.attr('marker-end', 'url(#markerArrow)');
+	}
+
+	function arrowPlace2In() {
+
+		// nEEA -> UK
+		var centerX_UK = data[0].coord.x-r/2;
+		var centerY_UK = data[0].coord.y+r/3*2;
+
+		var centerX_nEEA = data[1].coord.x+r/2+6;
+		var centerY_nEEA = data[1].coord.y-r/3*2-6;
+
+		var linesIn = svg.append('line')
+				.attr('class', 'flight flight-out')
+				.attr('x1', centerX_nEEA)
+				.attr('y1', centerY_nEEA)
+				.attr('x2', centerX_UK)
+				.attr('y2', centerY_UK)
+				.attr('stroke', 'white')
+				.attr('stroke-width', 5)
+				.attr('fill', 'none')
+				.attr('marker-end', 'url(#markerArrow)');
+
+		// EEA -> UK
+		var centerX_UK = data[0].coord.x+r/2;
+		var centerY_UK = data[0].coord.y+r/3*2;
+
+		var centerX_EEA = data[2].coord.x-r/2-6;
+		var centerY_EEA = data[2].coord.y-r/3*2-6;
+
+		var linesIn = svg.append('line')
+				.attr('class', 'flight flight-out')
+				.attr('x1', centerX_EEA)
+				.attr('y1', centerY_EEA)
+				.attr('x2', centerX_UK)
+				.attr('y2', centerY_UK)
+				.attr('stroke', 'white')
+				.attr('stroke-width', 5)
+				.attr('fill', 'none')
+				.attr('marker-end', 'url(#markerArrow)');
+
+		// EEA -> nEEA
+		var centerX_nEEA = data[1].coord.x+r;
+		var centerY_nEEA = data[1].coord.y+r/3;
+
+		var centerX_EEA = data[2].coord.x-r+3;
+		var centerY_EEA = data[2].coord.y+r/3;
+
+		var linesOut = svg.append('line')
+				.attr('class', 'flight flight-out')
+				.attr('x1', centerX_EEA)
+				.attr('y1', centerY_EEA)
+				.attr('x2', centerX_nEEA)
+				.attr('y2', centerY_nEEA)				
+				.attr('stroke', 'white')
+				.attr('stroke-width', 5)
+				.attr('fill', 'none')
+				.attr('marker-end', 'url(#markerArrow)');
+
+	}
 }
 
 /**
