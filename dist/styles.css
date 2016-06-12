@@ -6913,7 +6913,7 @@ section {
 .axis text {
   color: #ccc;
   text-rendering: optimizeLegibility;
-  font-size: 11px;
+  font-size: 12px;
 }
 .axis path {
   fill: none;

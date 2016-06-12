@@ -62,8 +62,8 @@ export function spending(data) {
  */
 function init(data) {	
 
-	margin = {top: 10, right: 35, bottom: 30, left: 10};
-	width = 810 - margin.left - margin.right;
+	margin = {top: 10, right: 35, bottom: 35, left: 10};
+	width = 1085 - margin.left - margin.right;
 	height = 345 - margin.top - margin.bottom;
 	
 	xScale = d3.scale.ordinal()
