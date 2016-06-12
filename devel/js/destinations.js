@@ -63,13 +63,13 @@ function init(data) {
  */
 function drawVis(data) {
 
-	// create tooltip and call it
+	// create tooltip for places and call it
 	tip = d3.tip()
 		.attr('class', 'd3-tip')
 		.html( d => {
 			return '<span class="number">Flights out: <span class="pull-right">'+numeral(d.departure.length).format('0,0')+'</span></span>\
 				<br/><span class="number">Flights in: <span class="pull-right">'+numeral(d.destination.length).format('0,0')+'</span></span>';
-		});
+		});	
 
 	svg.call(tip);
 	
@@ -102,14 +102,14 @@ function drawVis(data) {
 	svg.append('defs')
 		.append('marker')
 			.attr('id', 'markerArrow')
-			.attr('markerWidth', 8)
-			.attr('markerHeight', 6)
-			.attr('refX', 3)
-			.attr('refY', 3)
+			.attr('markerWidth', 6)
+			.attr('markerHeight', 4)
+			.attr('refX', 2)
+			.attr('refY', 2)
 			.attr('orient', 'auto')
 		.append('path')
 			.attr('class', 'flight')
-			.attr('d', 'M0,0 L0,6 L4,3 L0,0')
+			.attr('d', 'M0,0 L0,4 L3,2 L0,0')
 			.attr('fill', 'white');
 
 	var shiftX = r/2;
@@ -130,7 +130,7 @@ function drawVis(data) {
 	/**
 	 * Draws an arrow from a place to itself, representing flights from the place returing to it.
 	 */
-	function arrowPlace2Self() {		
+	function arrowPlace2Self() {
 
 		// UK -> UK
 		var centerX_UK = data[0].coord.x;
@@ -195,21 +195,10 @@ function drawVis(data) {
 			.attr('marker-end', 'url(#markerArrow)');
 	}
 
+	/**
+	 * Draws an arrow from a place to another place, in the direction representing flights out.
+	 */
 	function arrowPlace2Out() {
-		/*
-		var linesOut = svg.selectAll('.flight-out')
-			.data(data)
-			.enter()
-			.append('line')
-				.attr('x1', (d,i) => d.coord.x)
-				.attr('y1', (d,i) => d.coord.y)
-				.attr('x2', (d, i) => data[ (i+1) % 3].coord.x)
-				.attr('y2', (d, i) => data[ (i+1) % 3].coord.y)
-				.attr('stroke', 'white')
-				.attr('stroke-width', 5)
-				.attr('fill', 'none')
-				.attr('marker-end', 'url(#markerArrow)');
-		*/
 
 		// UK -> nEEA
 		var centerX_UK = data[0].coord.x-r;
@@ -266,11 +255,14 @@ function drawVis(data) {
 				.attr('marker-end', 'url(#markerArrow)');
 	}
 
+	/**
+	 * Draws an arrow from a place to another place, in the direction representing flights in.
+	 */
 	function arrowPlace2In() {
 
 		// nEEA -> UK
-		var centerX_UK = data[0].coord.x-r/2;
-		var centerY_UK = data[0].coord.y+r/3*2;
+		var centerX_UK = data[0].coord.x-r/2-8;
+		var centerY_UK = data[0].coord.y+r/3*2+8;
 
 		var centerX_nEEA = data[1].coord.x+r/2+6;
 		var centerY_nEEA = data[1].coord.y-r/3*2-6;
@@ -287,8 +279,8 @@ function drawVis(data) {
 				.attr('marker-end', 'url(#markerArrow)');
 
 		// EEA -> UK
-		var centerX_UK = data[0].coord.x+r/2;
-		var centerY_UK = data[0].coord.y+r/3*2;
+		var centerX_UK = data[0].coord.x+r/2+8;
+		var centerY_UK = data[0].coord.y+r/3*2+8;
 
 		var centerX_EEA = data[2].coord.x-r/2-6;
 		var centerY_EEA = data[2].coord.y-r/3*2-6;
