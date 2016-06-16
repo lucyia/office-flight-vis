@@ -19,7 +19,7 @@ var height;
  * @param {string} visId id of the visualization panel
  * @param {string} color fill color used for arcs
  */
-export function ticket(data, param, visId, color) {
+export function ticket(data, visId, param, color) {
 	var vis = {};
 	vis.update = updateChart;
 	vis.param = param;

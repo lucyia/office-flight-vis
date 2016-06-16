@@ -11,47 +11,47 @@ import {topSpending} from './topSpending';
 import {ticket} from './ticket';
 import {destinations} from './destinations';
 
+// array of objects representing spending
 var data;
 
-/*
+// panels for visualizations, including callable function and parameters to set them up
 var panels = [
-	{id: 'vis-spending', fn: spending, args: [data]}
+	{ id: 'vis-spending', fn: spending, args: [] },
+	{ id: 'vis-distribution', fn: distribution, args: [] },
+	{ id: 'vis-ticket-num', fn: ticket, args: ['length', '#d0725d'] },
+	{ id: 'vis-ticket-avg', fn: ticket, args: ['fare', '#d2a24c'] },
+	{ id: 'vis-top-sup', fn: topSpending, args: ['supplier', '#4b9226', 5, 130] },
+	{ id: 'vis-top-dir', fn: topSpending, args: ['directorate', '#af4c7e', 5, 130] },
+	{ id: 'vis-destinations', fn: destinations, args: [] },
+	{ id: 'vis-top10-sup', fn: topSpending, args: ['supplier', '#4b9226', 10, 320] }	
 	];
-*/
-var panels = [
-	'vis-spending',
-	'vis-distribution', 
-	'vis-ticket-num', 
-	'vis-ticket-avg', 
-	'vis-top-sup',
-	'vis-top-dir', 
-	'vis-destinations',
-	'vis-top10-sup'
-	];
-
-var sup;
-var dir;
-
-var price;
-var num;
 
 /**
+ * Stores the given data into module's global variable.
+ * Then detects what visualizations are possible to create and sets them up with defined parameters.
  *
- *
- * @param {array} dataset array of objects for visualization
+ * @param {array} dataset array of objects
  */
 export function visualize(dataset){	
+
 	data = dataset;
 
-	detectPanels(data);
+	panels.forEach( panel => {
+		if (document.getElementById(panel.id)) {
+			// some visualizations return object, store it, so it is callable later
+			panel.vis = panel.fn( data, panel.id, ...panel.args);
+		}
+	});
 }
 
 /**
  * Data is firstly filtered according to month and all other visualizations are then redrawn with updated data.
+ * If nothing is passed, then the default data with all months are visualized.
  *
  * @param {string} month selected month which will be used for filtering data
  */
 export function updatedSpending(month) {
+	// data to be visualized - either filtered or default data with all months
 	var dataset;
 	
 	if (month) {
@@ -62,53 +62,10 @@ export function updatedSpending(month) {
 		dataset = data;
 	}
 
-	sup.update(dataset);
-	dir.update(dataset);
-	num.update(dataset);
-	price.update(dataset);
-}
-
-
-/**
- *
- */
-function detectPanels(data) {
 	panels.forEach( panel => {
-		if (document.getElementById(panel)) {
-			switch (panel) {
-				case panels[0]:
-					spending(data);
-					break;
-
-				case panels[1]:
-					distribution(data);
-					break;
-
-				case panels[2]:
-					num = ticket(data, 'length', panels[2], '#d0725d');
-					break;
-
-				case panels[3]:
-					price = ticket(data, 'fare', panels[3], '#d2a24c');
-					break;
-
-				case panels[4]:
-					sup = topSpending(data, 'supplier', panels[4], '#4b9226', 5, 130);
-					break;
-
-				case panels[5]:
-					dir = topSpending(data, 'directorate', panels[5], '#af4c7e', 5, 130);
-					break;
-
-				case panels[6]:
-					destinations(data);
-					break;
-
-				case panels[7]:
-					sup = topSpending(data, 'supplier', panels[7], '#4b9226', 10, 320);
-					break;
-
-			}
-		}		
+		// if the visualization has an object returned, call update on it with the new dataset
+		if (panel.vis) {
+			panel.vis.update(dataset);
+		}
 	});
 }

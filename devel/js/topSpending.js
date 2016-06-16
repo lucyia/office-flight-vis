@@ -26,7 +26,7 @@ var tip;
  * @param {number} maxNumber number of param displayed
  * @param {number} panelHeight height of the SVG panel
  */
-export function topSpending(data, param, visId, color, maxNumber, panelHeight) {
+export function topSpending(data, visId, param, color, maxNumber, panelHeight) {
 
 	var vis = {};
 	vis.update = updateTopSpending;	
